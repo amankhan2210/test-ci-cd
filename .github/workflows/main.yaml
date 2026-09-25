@@ -7,7 +7,7 @@ jobs:
   check-changes:
     runs-on: ubuntu-latest
     outputs:
-      backend_changed: ${{ steps.changes.outputs.backend }}
+      backend: ${{ steps.changes.outputs.backend }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

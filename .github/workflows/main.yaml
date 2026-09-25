@@ -1,3 +1,5 @@
+name: Backend CI
+
 on:
   push:
     branches:
@@ -6,11 +8,15 @@ on:
 jobs:
   check-changes:
     runs-on: ubuntu-latest
+
     outputs:
       backend: ${{ steps.changes.outputs.backend }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Check for changes in backend
         id: changes
@@ -18,15 +24,22 @@ jobs:
         with:
           filters: |
             backend:
-              - 'backed/**'
+              - 'backend/**'
+
+      - name: Show result
+        run: |
+          echo "Backend changed = ${{ steps.changes.outputs.backend }}"
 
   backend:
     needs: check-changes
     runs-on: ubuntu-latest
+
     if: needs.check-changes.outputs.backend == 'true'
 
     steps:
-      - name: Nice working
-        run: echo "Changes detected in backed folder. Proceeding with backend job."
+      - name: Backend changes detected
+        run: |
+          echo "✅ Changes detected in backend folder"
+          echo "🚀 Backend job is running"
        
              

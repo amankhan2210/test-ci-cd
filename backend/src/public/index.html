@@ -1,0 +1,2638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Code Elevate — Master DSA. Build Your Future.</title>
+
+<meta name="description"
+content="Code Elevate — Practice DSA, compete, collaborate and become a better developer.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Inter,sans-serif;
+    background:#080b0a;
+    color:#f4f7f3;
+    overflow-x:hidden;
+}
+
+/* =========================================================
+   VARIABLES
+========================================================= */
+
+:root{
+    --bg:#080b0a;
+    --bg2:#0d1210;
+    --card:#111713;
+    --card2:#151c18;
+
+    --green:#b8ff00;
+    --green2:#8ed000;
+
+    --text:#f4f7f3;
+    --muted:#8c9890;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:20px;
+}
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-3;
+
+    background:
+        radial-gradient(circle at 20% 10%,rgba(184,255,0,.08),transparent 30%),
+        radial-gradient(circle at 80% 20%,rgba(90,255,160,.04),transparent 30%);
+}
+
+.grid-bg{
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    pointer-events:none;
+
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+
+    background-size:50px 50px;
+
+    mask-image:linear-gradient(to bottom,black,transparent 80%);
+}
+
+/* =========================================================
+   CURSOR GLOW
+========================================================= */
+
+.cursor-glow{
+    position:fixed;
+    width:300px;
+    height:300px;
+
+    background:radial-gradient(
+        circle,
+        rgba(184,255,0,.08),
+        transparent 65%
+    );
+
+    border-radius:50%;
+
+    pointer-events:none;
+    transform:translate(-50%,-50%);
+
+    z-index:999;
+}
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+
+    z-index:100;
+
+    padding:20px 6%;
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    backdrop-filter:blur(15px);
+
+    background:rgba(8,11,10,.65);
+
+    border-bottom:1px solid rgba(255,255,255,.04);
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:10px;
+
+    font-weight:800;
+    font-size:21px;
+    letter-spacing:-.5px;
+}
+
+.logo-icon{
+    width:35px;
+    height:35px;
+
+    border-radius:10px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:#080b0a;
+    background:var(--green);
+
+    font-weight:900;
+
+    box-shadow:0 0 25px rgba(184,255,0,.25);
+}
+
+.logo span{
+    color:var(--green);
+}
+
+.nav-links{
+    display:flex;
+    gap:35px;
+    list-style:none;
+}
+
+.nav-links a{
+    text-decoration:none;
+    color:#aab3ac;
+
+    font-size:14px;
+    transition:.3s;
+}
+
+.nav-links a:hover{
+    color:var(--green);
+}
+
+.nav-buttons{
+    display:flex;
+    gap:10px;
+}
+
+.btn{
+    border:0;
+    cursor:pointer;
+
+    padding:12px 20px;
+
+    border-radius:10px;
+
+    font-weight:600;
+
+    transition:.3s;
+}
+
+.btn-outline{
+    background:transparent;
+    color:white;
+
+    border:1px solid var(--border);
+}
+
+.btn-outline:hover{
+    border-color:var(--green);
+}
+
+.btn-green{
+    background:var(--green);
+    color:#081000;
+
+    box-shadow:0 0 20px rgba(184,255,0,.15);
+}
+
+.btn-green:hover{
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 10px 35px rgba(184,255,0,.2);
+}
+
+.menu{
+    display:none;
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    min-height:100vh;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    padding:140px 6% 100px;
+
+    position:relative;
+}
+
+.hero-container{
+    max-width:1250px;
+    width:100%;
+
+    display:grid;
+    grid-template-columns:1.1fr .9fr;
+
+    gap:70px;
+
+    align-items:center;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+
+    padding:8px 13px;
+
+    border-radius:50px;
+
+    border:1px solid rgba(184,255,0,.15);
+
+    background:rgba(184,255,0,.05);
+
+    color:var(--green);
+
+    font-size:12px;
+    font-weight:600;
+
+    margin-bottom:25px;
+}
+
+.badge-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+
+    box-shadow:0 0 10px var(--green);
+}
+
+.hero h1{
+    font-size:clamp(48px,6vw,82px);
+
+    line-height:1.02;
+
+    letter-spacing:-4px;
+
+    margin-bottom:25px;
+}
+
+.hero h1 .green{
+    color:var(--green);
+}
+
+.hero-description{
+    color:var(--muted);
+
+    font-size:17px;
+
+    line-height:1.7;
+
+    max-width:650px;
+
+    margin-bottom:35px;
+}
+
+.hero-buttons{
+    display:flex;
+    gap:15px;
+}
+
+.hero-note{
+    margin-top:22px;
+
+    color:#667069;
+
+    font-size:12px;
+}
+
+/* =========================================================
+   CODE WINDOW
+========================================================= */
+
+.code-window{
+    background:#0c110e;
+
+    border:1px solid rgba(255,255,255,.08);
+
+    border-radius:20px;
+
+    box-shadow:
+        0 40px 100px rgba(0,0,0,.45),
+        0 0 80px rgba(184,255,0,.04);
+
+    overflow:hidden;
+
+    transform:perspective(1000px) rotateY(-5deg);
+
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+
+    0%,100%{
+        transform:perspective(1000px) rotateY(-5deg) translateY(0);
+    }
+
+    50%{
+        transform:perspective(1000px) rotateY(-5deg) translateY(-12px);
+    }
+}
+
+.window-header{
+    padding:15px 18px;
+
+    border-bottom:1px solid rgba(255,255,255,.06);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.dots{
+    display:flex;
+    gap:6px;
+}
+
+.dot{
+    width:9px;
+    height:9px;
+
+    border-radius:50%;
+
+    background:#323a35;
+}
+
+.file{
+    color:#778178;
+    font-size:11px;
+}
+
+.code{
+    padding:25px;
+
+    font-family:"JetBrains Mono",monospace;
+
+    font-size:13px;
+
+    line-height:1.9;
+
+    color:#b9c4bc;
+}
+
+.keyword{
+    color:#d18cff;
+}
+
+.function{
+    color:#7ddcff;
+}
+
+.string{
+    color:#c7ff6a;
+}
+
+.comment{
+    color:#56635a;
+}
+
+.number{
+    color:#ffcf70;
+}
+
+.code-line{
+    display:block;
+}
+
+.line-number{
+    color:#354139;
+
+    display:inline-block;
+
+    width:28px;
+
+    user-select:none;
+}
+
+.run{
+    margin:0 25px 25px;
+
+    padding:12px;
+
+    border-radius:9px;
+
+    text-align:center;
+
+    background:rgba(184,255,0,.08);
+
+    color:var(--green);
+
+    font-size:12px;
+
+    border:1px solid rgba(184,255,0,.12);
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    max-width:1100px;
+
+    margin:-20px auto 100px;
+
+    padding:0 6%;
+
+    display:grid;
+
+    grid-template-columns:repeat(4,1fr);
+
+    gap:15px;
+}
+
+.stat{
+    padding:25px;
+
+    background:rgba(255,255,255,.025);
+
+    border:1px solid var(--border);
+
+    border-radius:15px;
+
+    text-align:center;
+}
+
+.stat h3{
+    font-size:30px;
+
+    color:var(--green);
+
+    margin-bottom:7px;
+}
+
+.stat p{
+    font-size:12px;
+
+    color:var(--muted);
+}
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section{
+    padding:120px 6%;
+}
+
+.section-container{
+    max-width:1200px;
+    margin:auto;
+}
+
+.section-heading{
+    max-width:650px;
+    margin-bottom:60px;
+}
+
+.section-label{
+    color:var(--green);
+
+    font-size:12px;
+
+    font-weight:700;
+
+    text-transform:uppercase;
+
+    letter-spacing:2px;
+
+    margin-bottom:15px;
+}
+
+.section-heading h2{
+    font-size:clamp(35px,4vw,55px);
+
+    letter-spacing:-2px;
+
+    margin-bottom:15px;
+}
+
+.section-heading p{
+    color:var(--muted);
+
+    line-height:1.7;
+}
+
+/* =========================================================
+   PROBLEM CARDS
+========================================================= */
+
+.problem-grid{
+    display:grid;
+
+    grid-template-columns:repeat(3,1fr);
+
+    gap:18px;
+}
+
+.problem-card{
+    position:relative;
+
+    padding:30px;
+
+    min-height:220px;
+
+    background:linear-gradient(
+        145deg,
+        #121813,
+        #0c110e
+    );
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    transition:.4s;
+
+    overflow:hidden;
+}
+
+.problem-card::before{
+    content:"";
+
+    position:absolute;
+
+    width:150px;
+    height:150px;
+
+    background:var(--green);
+
+    opacity:.04;
+
+    filter:blur(40px);
+
+    top:-50px;
+    right:-50px;
+}
+
+.problem-card:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(184,255,0,.25);
+
+    box-shadow:
+        0 20px 50px rgba(0,0,0,.25);
+}
+
+.problem-icon{
+    width:45px;
+    height:45px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius:12px;
+
+    background:rgba(184,255,0,.08);
+
+    color:var(--green);
+
+    font-size:20px;
+
+    margin-bottom:25px;
+}
+
+.problem-card h3{
+    margin-bottom:10px;
+}
+
+.problem-card p{
+    color:var(--muted);
+
+    font-size:13px;
+
+    line-height:1.6;
+}
+
+.problem-count{
+    position:absolute;
+
+    bottom:25px;
+
+    color:#58635b;
+
+    font-size:11px;
+}
+
+/* =========================================================
+   FEATURE SPLIT
+========================================================= */
+
+.feature{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:80px;
+
+    align-items:center;
+}
+
+.feature.reverse{
+    direction:rtl;
+}
+
+.feature.reverse > *{
+    direction:ltr;
+}
+
+.feature-text h2{
+    font-size:48px;
+
+    letter-spacing:-2px;
+
+    margin-bottom:20px;
+}
+
+.feature-text p{
+    color:var(--muted);
+
+    line-height:1.8;
+
+    margin-bottom:25px;
+}
+
+.feature-list{
+    list-style:none;
+}
+
+.feature-list li{
+    display:flex;
+
+    gap:12px;
+
+    margin:15px 0;
+
+    font-size:14px;
+
+    color:#b9c2bb;
+}
+
+.check{
+    width:20px;
+    height:20px;
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    border-radius:50%;
+
+    background:rgba(184,255,0,.1);
+
+    color:var(--green);
+
+    font-size:11px;
+}
+
+/* =========================================================
+   DASHBOARD MOCKUP
+========================================================= */
+
+.dashboard{
+    border:1px solid var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    background:#0c110e;
+
+    box-shadow:0 30px 70px rgba(0,0,0,.35);
+}
+
+.dash-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.dash-title{
+    font-size:13px;
+    font-weight:700;
+}
+
+.level{
+    color:var(--green);
+    font-size:11px;
+}
+
+.progress{
+    height:7px;
+
+    background:#1b241e;
+
+    border-radius:10px;
+
+    overflow:hidden;
+
+    margin:10px 0 20px;
+}
+
+.progress span{
+    display:block;
+
+    width:74%;
+
+    height:100%;
+
+    background:var(--green);
+
+    border-radius:10px;
+
+    animation:progress 2s ease;
+}
+
+@keyframes progress{
+    from{width:0}
+    to{width:74%}
+}
+
+.dash-grid{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:12px;
+}
+
+.dash-card{
+    background:#111712;
+
+    padding:18px;
+
+    border:1px solid rgba(255,255,255,.05);
+
+    border-radius:13px;
+}
+
+.dash-card small{
+    color:#69756d;
+
+    font-size:10px;
+}
+
+.dash-card strong{
+    display:block;
+
+    font-size:24px;
+
+    margin-top:5px;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar{
+    margin-top:15px;
+
+    display:grid;
+
+    grid-template-columns:repeat(14,1fr);
+
+    gap:4px;
+}
+
+.day{
+    aspect-ratio:1;
+
+    background:#182019;
+
+    border-radius:3px;
+}
+
+.day.active{
+    background:#668d12;
+}
+
+.day.hot{
+    background:var(--green);
+
+    box-shadow:0 0 8px rgba(184,255,0,.25);
+}
+
+/* =========================================================
+   AI SECTION
+========================================================= */
+
+.ai-box{
+    padding:70px;
+
+    border-radius:25px;
+
+    background:
+        radial-gradient(
+            circle at 80% 20%,
+            rgba(184,255,0,.08),
+            transparent 35%
+        ),
+        #0d130f;
+
+    border:1px solid var(--border);
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.ai-box h2{
+    font-size:50px;
+
+    letter-spacing:-2px;
+
+    max-width:650px;
+
+    margin-bottom:20px;
+}
+
+.ai-box p{
+    color:var(--muted);
+
+    max-width:650px;
+
+    line-height:1.8;
+
+    margin-bottom:30px;
+}
+
+.ai-orb{
+    position:absolute;
+
+    right:-100px;
+    bottom:-120px;
+
+    width:350px;
+    height:350px;
+
+    border-radius:50%;
+
+    border:1px solid rgba(184,255,0,.15);
+
+    box-shadow:
+        0 0 100px rgba(184,255,0,.08),
+        inset 0 0 80px rgba(184,255,0,.04);
+
+    animation:orb 7s linear infinite;
+}
+
+@keyframes orb{
+
+    to{
+        transform:rotate(360deg);
+    }
+
+}
+
+/* =========================================================
+   COLLAB
+========================================================= */
+
+.collab{
+    display:grid;
+
+    grid-template-columns:1fr 1fr;
+
+    gap:50px;
+}
+
+.collab-window{
+    padding:20px;
+
+    background:#0b100d;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+}
+
+.users{
+    display:flex;
+
+    margin-bottom:15px;
+}
+
+.avatar{
+    width:35px;
+    height:35px;
+
+    border-radius:50%;
+
+    background:#29322c;
+
+    border:2px solid #0b100d;
+
+    margin-left:-8px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:10px;
+}
+
+.avatar:first-child{
+    margin-left:0;
+}
+
+.live{
+    margin-left:auto;
+
+    color:var(--green);
+
+    font-size:10px;
+}
+
+.collab-code{
+    background:#111712;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    font-family:"JetBrains Mono";
+
+    color:#91a095;
+
+    font-size:12px;
+
+    line-height:2;
+}
+
+/* =========================================================
+   LEADERBOARD
+========================================================= */
+
+.leaderboard{
+    max-width:850px;
+
+    margin:auto;
+
+    background:#0d120f;
+
+    border:1px solid var(--border);
+
+    border-radius:18px;
+
+    overflow:hidden;
+}
+
+.leader-row{
+    display:grid;
+
+    grid-template-columns:50px 1fr 120px 120px;
+
+    padding:20px;
+
+    border-bottom:1px solid rgba(255,255,255,.05);
+
+    align-items:center;
+
+    font-size:13px;
+}
+
+.leader-row:last-child{
+    border-bottom:0;
+}
+
+.rank{
+    color:#6e786f;
+}
+
+.user{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.mini-avatar{
+    width:32px;
+    height:32px;
+
+    border-radius:50%;
+
+    background:#1b241d;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+}
+
+.xp{
+    color:var(--green);
+}
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+    text-align:center;
+
+    padding:140px 20px;
+}
+
+.cta h2{
+    font-size:clamp(40px,5vw,70px);
+
+    letter-spacing:-3px;
+
+    margin-bottom:20px;
+}
+
+.cta p{
+    color:var(--muted);
+
+    margin-bottom:30px;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    border-top:1px solid var(--border);
+
+    padding:50px 6%;
+
+    color:#657068;
+
+    font-size:12px;
+}
+
+.footer-inner{
+    max-width:1200px;
+
+    margin:auto;
+
+    display:flex;
+
+    justify-content:space-between;
+}
+
+/* =========================================================
+   REVEAL
+========================================================= */
+
+.reveal{
+    opacity:0;
+
+    transform:translateY(35px);
+
+    transition:
+        opacity .8s ease,
+        transform .8s ease;
+}
+
+.reveal.show{
+    opacity:1;
+
+    transform:translateY(0);
+}
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:900px){
+
+    .nav-links,
+    .nav-buttons{
+        display:none;
+    }
+
+    .menu{
+        display:block;
+
+        font-size:25px;
+
+        cursor:pointer;
+    }
+
+    .hero-container{
+        grid-template-columns:1fr;
+
+        gap:50px;
+    }
+
+    .hero h1{
+        letter-spacing:-2px;
+    }
+
+    .code-window{
+        transform:none;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .problem-grid{
+        grid-template-columns:1fr 1fr;
+    }
+
+    .feature,
+    .collab{
+        grid-template-columns:1fr;
+    }
+
+    .feature.reverse{
+        direction:ltr;
+    }
+
+    .ai-box{
+        padding:40px 25px;
+    }
+
+}
+
+@media(max-width:600px){
+
+    section{
+        padding:80px 5%;
+    }
+
+    .hero{
+        padding:130px 5% 80px;
+    }
+
+    .hero-buttons{
+        flex-direction:column;
+    }
+
+    .hero-buttons .btn{
+        width:100%;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        padding:0 5%;
+    }
+
+    .problem-grid{
+        grid-template-columns:1fr;
+    }
+
+    .feature-text h2{
+        font-size:38px;
+    }
+
+    .ai-box h2{
+        font-size:38px;
+    }
+
+    .leader-row{
+        grid-template-columns:35px 1fr 80px;
+    }
+
+    .leader-row .problems{
+        display:none;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+        gap:15px;
+    }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+<div class="cursor-glow"></div>
+
+<!-- ======================================================
+     NAVBAR
+====================================================== -->
+
+<nav>
+
+    <div class="logo">
+
+        <div class="logo-icon">
+            &lt;/&gt;
+        </div>
+
+        Code <span>Elevate</span>
+
+    </div>
+
+    <ul class="nav-links">
+
+        <li><a href="#problems">Problems</a></li>
+
+        <li><a href="#features">Features</a></li>
+
+        <li><a href="#ai">AI Coach</a></li>
+
+        <li><a href="#community">Community</a></li>
+
+        <li><a href="#leaderboard">Leaderboard</a></li>
+
+    </ul>
+
+    <div class="nav-buttons">
+
+        <button class="btn btn-outline">
+            Log in
+        </button>
+
+        <button class="btn btn-green">
+            Start Coding
+        </button>
+
+    </div>
+
+    <div class="menu">
+        ☰
+    </div>
+
+</nav>
+
+
+<!-- ======================================================
+     HERO
+====================================================== -->
+
+<section class="hero">
+
+<div class="hero-container">
+
+<div class="hero-content reveal">
+
+<div class="badge">
+
+<span class="badge-dot"></span>
+
+Built for the next generation of developers
+
+</div>
+
+<h1>
+
+Master DSA.<br>
+
+<span class="green">Elevate</span> Your Code.
+
+</h1>
+
+<p class="hero-description">
+
+Practice smarter. Solve real problems. Compete with developers
+around the world and build the problem-solving skills that
+actually matter.
+
+</p>
+
+<div class="hero-buttons">
+
+<button class="btn btn-green" onclick="startCoding()">
+
+Start Practicing →
+
+</button>
+
+<button class="btn btn-outline">
+
+Explore Problems
+
+</button>
+
+</div>
+
+<div class="hero-note">
+
+No credit card required · Free forever plan
+
+</div>
+
+</div>
+
+
+<!-- CODE WINDOW -->
+
+<div class="code-window reveal">
+
+<div class="window-header">
+
+<div class="dots">
+
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+
+</div>
+
+<div class="file">
+
+two-sum.cpp
+
+</div>
+
+</div>
+
+
+<div class="code">
+
+<span class="code-line">
+
+<span class="line-number">01</span>
+
+<span class="keyword">class</span>
+<span class="function">Solution</span> {
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">02</span>
+
+&nbsp;&nbsp;
+<span class="keyword">public</span>:
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">03</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span class="keyword">vector</span>&lt;<span class="keyword">int</span>&gt;
+
+twoSum(
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">04</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+vector&lt;<span class="keyword">int</span>&gt;& nums,
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">05</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span class="keyword">int</span> target) {
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">06</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span class="comment">// Find the pair</span>
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">07</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span class="keyword">unordered_map</span>
+
+&lt;<span class="keyword">int,int</span>&gt; mp;
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">08</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span class="keyword">for</span>(
+
+<span class="keyword">int</span> i=0;
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">09</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp; i &lt; nums.size();
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">10</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp; i++){
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">11</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp; <span class="keyword">int</span>
+
+need = target - nums[i];
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">12</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp; <span class="keyword">if</span>(mp.count(need))
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">13</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+&nbsp;&nbsp;&nbsp;&nbsp; <span class="keyword">return</span>
+
+{mp[need],i};
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">14</span>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+}
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">15</span>
+
+&nbsp;&nbsp; }
+
+</span>
+
+
+<span class="code-line">
+
+<span class="line-number">16</span>
+
+}
+
+</span>
+
+</div>
+
+<div class="run">
+
+✓ Accepted · Runtime 4ms · Memory 12.4MB
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     STATS
+====================================================== -->
+
+<div class="stats reveal">
+
+<div class="stat">
+
+<h3 data-target="2500">0</h3>
+
+<p>Problems</p>
+
+</div>
+
+<div class="stat">
+
+<h3 data-target="120">0</h3>
+
+<p>Companies</p>
+
+</div>
+
+<div class="stat">
+
+<h3 data-target="50">0</h3>
+
+<p>Topics</p>
+
+</div>
+
+<div class="stat">
+
+<h3 data-target="100">0</h3>
+
+<p>Test Cases</p>
+
+</div>
+
+</div>
+
+
+<!-- ======================================================
+     PROBLEMS
+====================================================== -->
+
+<section id="problems">
+
+<div class="section-container">
+
+<div class="section-heading reveal">
+
+<div class="section-label">
+
+Practice
+
+</div>
+
+<h2>
+
+Build skills through problems.
+
+</h2>
+
+<p>
+
+Follow a structured roadmap from fundamentals to advanced
+algorithms instead of randomly solving questions.
+
+</p>
+
+</div>
+
+
+<div class="problem-grid">
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+⌘
+
+</div>
+
+<h3>Arrays & Strings</h3>
+
+<p>
+
+Master the foundation of problem solving with
+arrays, strings and hashing.
+
+</p>
+
+<div class="problem-count">
+
+420 Problems
+
+</div>
+
+</div>
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+◈
+
+</div>
+
+<h3>Linked Lists</h3>
+
+<p>
+
+Understand pointers, traversal, cycles and
+advanced linked list patterns.
+
+</p>
+
+<div class="problem-count">
+
+120 Problems
+
+</div>
+
+</div>
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+◎
+
+</div>
+
+<h3>Trees & Graphs</h3>
+
+<p>
+
+Become comfortable with DFS, BFS, shortest paths
+and graph algorithms.
+
+</p>
+
+<div class="problem-count">
+
+340 Problems
+
+</div>
+
+</div>
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+Σ
+
+</div>
+
+<h3>Dynamic Programming</h3>
+
+<p>
+
+Learn patterns that turn complex problems into
+manageable subproblems.
+
+</p>
+
+<div class="problem-count">
+
+250 Problems
+
+</div>
+
+</div>
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+⌁
+
+</div>
+
+<h3>Binary Search</h3>
+
+<p>
+
+Master one of the most important algorithmic
+techniques used in interviews.
+
+</p>
+
+<div class="problem-count">
+
+110 Problems
+
+</div>
+
+</div>
+
+
+<div class="problem-card reveal">
+
+<div class="problem-icon">
+
+λ
+
+</div>
+
+<h3>Greedy & Backtracking</h3>
+
+<p>
+
+Develop intuition for choosing optimal decisions
+and exploring possibilities.
+
+</p>
+
+<div class="problem-count">
+
+180 Problems
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     DASHBOARD FEATURE
+====================================================== -->
+
+<section id="features">
+
+<div class="section-container">
+
+<div class="feature">
+
+<div class="feature-text reveal">
+
+<div class="section-label">
+
+Track Progress
+
+</div>
+
+<h2>
+
+Turn consistency into progress.
+
+</h2>
+
+<p>
+
+Your dashboard gives you a clear picture of your
+problem-solving journey. Track your streaks, identify
+weak topics and understand where you're improving.
+
+</p>
+
+<ul class="feature-list">
+
+<li>
+
+<span class="check">✓</span>
+
+Daily coding streak
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Topic-wise progress
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Difficulty distribution
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Personal performance analytics
+
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="dashboard reveal">
+
+<div class="dash-top">
+
+<div class="dash-title">
+
+Your Progress
+
+</div>
+
+<div class="level">
+
+LEVEL 24
+
+</div>
+
+</div>
+
+<div>
+
+<small style="color:#68736b">
+
+XP Progress
+
+</small>
+
+<div class="progress">
+
+<span></span>
+
+</div>
+
+</div>
+
+
+<div class="dash-grid">
+
+<div class="dash-card">
+
+<small>Problems Solved</small>
+
+<strong>427</strong>
+
+</div>
+
+<div class="dash-card">
+
+<small>Current Streak</small>
+
+<strong>18 🔥</strong>
+
+</div>
+
+<div class="dash-card">
+
+<small>Acceptance</small>
+
+<strong>86%</strong>
+
+</div>
+
+<div class="dash-card">
+
+<small>Global Rank</small>
+
+<strong>#1,284</strong>
+
+</div>
+
+</div>
+
+
+<div style="margin-top:20px">
+
+<small style="color:#68736b">
+
+Activity
+
+</small>
+
+<div class="calendar" id="calendar"></div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     AI
+====================================================== -->
+
+<section id="ai">
+
+<div class="section-container">
+
+<div class="ai-box reveal">
+
+<div class="section-label">
+
+AI Coach
+
+</div>
+
+<h2>
+
+Don't just get the answer. Learn how to think.
+
+</h2>
+
+<p>
+
+Code Elevate AI helps you understand your mistakes,
+gives progressive hints and explains concepts without
+spoiling the solution immediately.
+
+</p>
+
+<button class="btn btn-green">
+
+Try AI Coach →
+
+</button>
+
+<div class="ai-orb"></div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     COLLAB
+====================================================== -->
+
+<section id="community">
+
+<div class="section-container">
+
+<div class="feature">
+
+<div class="collab-window reveal">
+
+<div class="users">
+
+<div class="avatar">AK</div>
+
+<div class="avatar">RK</div>
+
+<div class="avatar">SM</div>
+
+<div class="avatar">+</div>
+
+<div class="live">
+
+● 3 LIVE
+
+</div>
+
+</div>
+
+
+<div class="collab-code">
+
+<span style="color:#d18cff">function</span>
+
+<span style="color:#7ddcff">
+
+solve
+
+</span>(nums, target) {
+
+<br>
+
+&nbsp;&nbsp;
+
+<span style="color:#8ed000">
+
+const
+
+</span> map =
+
+<span style="color:#7ddcff">
+
+new Map();
+
+</span>
+
+<br><br>
+
+&nbsp;&nbsp;
+
+<span style="color:#8ed000">
+
+for
+
+</span>
+
+(
+
+<span style="color:#ffcf70">
+
+let
+
+</span> i = 0;
+
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+i &lt; nums.length; i++
+
+<br>
+
+&nbsp;&nbsp;) {
+
+<br>
+
+&nbsp;&nbsp;&nbsp;&nbsp;
+
+<span style="color:#778178">
+
+// collaborate in real time
+
+</span>
+
+<br>
+
+&nbsp;&nbsp;}
+
+<br>
+
+}
+
+</div>
+
+</div>
+
+
+<div class="feature-text reveal">
+
+<div class="section-label">
+
+Collaborate
+
+</div>
+
+<h2>
+
+Solve problems together.
+
+</h2>
+
+<p>
+
+Invite a friend, open the same problem and code
+together in real-time. Discuss approaches, debug
+mistakes and learn faster.
+
+</p>
+
+<ul class="feature-list">
+
+<li>
+
+<span class="check">✓</span>
+
+Real-time collaborative editor
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Invite friends to problems
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Live code synchronization
+
+</li>
+
+<li>
+
+<span class="check">✓</span>
+
+Built-in discussion
+
+</li>
+
+</ul>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     LEADERBOARD
+====================================================== -->
+
+<section id="leaderboard">
+
+<div class="section-container">
+
+<div class="section-heading reveal">
+
+<div class="section-label">
+
+Compete
+
+</div>
+
+<h2>
+
+Your progress. Your rank.
+
+</h2>
+
+<p>
+
+Challenge yourself, participate in contests and see
+how you compare with the community.
+
+</p>
+
+</div>
+
+
+<div class="leaderboard reveal">
+
+<div class="leader-row">
+
+<div class="rank">#</div>
+
+<div>Developer</div>
+
+<div>Problems</div>
+
+<div>XP</div>
+
+</div>
+
+
+<div class="leader-row">
+
+<div class="rank">01</div>
+
+<div class="user">
+
+<div class="mini-avatar">A</div>
+
+Aarav
+
+</div>
+
+<div class="problems">842</div>
+
+<div class="xp">92,420</div>
+
+</div>
+
+
+<div class="leader-row">
+
+<div class="rank">02</div>
+
+<div class="user">
+
+<div class="mini-avatar">R</div>
+
+Rohan
+
+</div>
+
+<div class="problems">781</div>
+
+<div class="xp">88,210</div>
+
+</div>
+
+
+<div class="leader-row">
+
+<div class="rank">03</div>
+
+<div class="user">
+
+<div class="mini-avatar">S</div>
+
+<div>Sanya</div>
+
+</div>
+
+<div class="problems">749</div>
+
+<div class="xp">85,760</div>
+
+</div>
+
+
+<div class="leader-row">
+
+<div class="rank">04</div>
+
+<div class="user">
+
+<div class="mini-avatar">K</div>
+
+Karan
+
+</div>
+
+<div class="problems">712</div>
+
+<div class="xp">81,320</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     CTA
+====================================================== -->
+
+<section class="cta">
+
+<div class="reveal">
+
+<div class="section-label">
+
+Start Today
+
+</div>
+
+<h2>
+
+Elevate your<br>
+
+<span style="color:var(--green)">
+
+problem solving.
+
+</span>
+
+</h2>
+
+<p>
+
+One problem today can change how you think tomorrow.
+
+</p>
+
+<button class="btn btn-green" onclick="startCoding()">
+
+Create Free Account →
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- ======================================================
+     FOOTER
+====================================================== -->
+
+<footer>
+
+<div class="footer-inner">
+
+<div>
+
+© 2026 Code Elevate
+
+</div>
+
+<div>
+
+Built for developers who want to get better.
+
+</div>
+
+</div>
+
+</footer>
+
+
+<script>
+
+/* =========================================================
+   CURSOR GLOW
+========================================================= */
+
+const cursor = document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+    cursor.style.left = e.clientX + "px";
+
+    cursor.style.top = e.clientY + "px";
+
+});
+
+
+/* =========================================================
+   SCROLL REVEAL
+========================================================= */
+
+const observer = new IntersectionObserver(
+
+(entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(entry.isIntersecting){
+
+            entry.target.classList.add("show");
+
+        }
+
+    });
+
+},
+
+{
+    threshold:.12
+}
+
+);
+
+
+document.querySelectorAll(".reveal").forEach(el=>{
+
+    observer.observe(el);
+
+});
+
+
+/* =========================================================
+   COUNTER ANIMATION
+========================================================= */
+
+const counters =
+document.querySelectorAll("[data-target]");
+
+
+const counterObserver =
+new IntersectionObserver(
+
+(entries)=>{
+
+    entries.forEach(entry=>{
+
+        if(!entry.isIntersecting) return;
+
+        const element = entry.target;
+
+        const target =
+        parseInt(element.dataset.target);
+
+        let current = 0;
+
+        const increment =
+        Math.ceil(target / 60);
+
+        const update = ()=>{
+
+            current += increment;
+
+            if(current >= target){
+
+                element.innerText =
+                target.toLocaleString();
+
+                return;
+
+            }
+
+            element.innerText =
+            current.toLocaleString();
+
+            requestAnimationFrame(update);
+
+        };
+
+        update();
+
+        counterObserver.unobserve(element);
+
+    });
+
+},
+{
+    threshold:.5
+});
+
+
+counters.forEach(counter=>{
+
+    counterObserver.observe(counter);
+
+});
+
+
+/* =========================================================
+   ACTIVITY CALENDAR
+========================================================= */
+
+const calendar =
+document.getElementById("calendar");
+
+
+for(let i=0;i<84;i++){
+
+    const day =
+    document.createElement("div");
+
+    day.className="day";
+
+    const random =
+    Math.random();
+
+    if(random > .72){
+
+        day.classList.add("active");
+
+    }
+
+    if(random > .94){
+
+        day.classList.add("hot");
+
+    }
+
+    calendar.appendChild(day);
+
+}
+
+
+/* =========================================================
+   START CODING
+========================================================= */
+
+function startCoding(){
+
+    alert(
+        "Welcome to Code Elevate 🚀\n\nAuthentication page will open here."
+    );
+
+}
+
+
+/* =========================================================
+   BUTTON RIPPLE
+========================================================= */
+
+document.querySelectorAll(".btn")
+.forEach(button=>{
+
+    button.addEventListener("click",function(e){
+
+        const ripple =
+        document.createElement("span");
+
+        ripple.style.position="absolute";
+
+        ripple.style.width="10px";
+
+        ripple.style.height="10px";
+
+        ripple.style.borderRadius="50%";
+
+        ripple.style.background="rgba(255,255,255,.3)";
+
+        ripple.style.left=e.offsetX+"px";
+
+        ripple.style.top=e.offsetY+"px";
+
+        ripple.style.transform="scale(0)";
+
+        ripple.style.animation="ripple .5s linear";
+
+        this.style.position="relative";
+
+        this.style.overflow="hidden";
+
+        this.appendChild(ripple);
+
+        setTimeout(()=>ripple.remove(),500);
+
+    });
+
+});
+
+
+/* =========================================================
+   TYPING EFFECT
+========================================================= */
+
+const badge =
+document.querySelector(".badge");
+
+let pulse = true;
+
+setInterval(()=>{
+
+    pulse = !pulse;
+
+    badge.style.boxShadow =
+    pulse
+    ? "0 0 25px rgba(184,255,0,.08)"
+    : "none";
+
+},1500);
+
+</script>
+
+<style>
+
+@keyframes ripple{
+
+    to{
+
+        transform:scale(30);
+
+        opacity:0;
+
+    }
+
+}
+
+</style>
+
+</body>
+</html>
+```

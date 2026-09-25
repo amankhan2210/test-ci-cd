@@ -1,0 +1,28 @@
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      server_changed: ${{ steps.server_changed.outputs.server }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Check for changes in backend
+        id: server_changed
+        uses: dorny/paths-filter@v3
+        with:
+          filters:  'server/**'
+  server:
+    needs: check-changes
+    runs-on: ubuntu-latest
+    if: needs.check-changes.outputs.server_changed == 'true'
+    steps:
+      - name: Nice working
+        run: echo "Changes detected in backend folder. Proceeding with the server job."
+       
+             

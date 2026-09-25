@@ -23,7 +23,7 @@ jobs:
   backend:
     needs: check-changes
     runs-on: ubuntu-latest
-    if: needs.check-changes.outputs.backend_changed == 'true'
+    if: needs.check-changes.outputs.backend == 'true'
 
     steps:
       - name: Nice working

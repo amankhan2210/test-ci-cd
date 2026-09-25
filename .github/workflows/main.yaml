@@ -2,44 +2,28 @@ name: Backend CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
-  check-changes:
+  check:
     runs-on: ubuntu-latest
-
     outputs:
-      backend: ${{ steps.changes.outputs.backend }}
+      backend: ${{ steps.filter.outputs.backend }}
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
+      - uses: actions/checkout@v4
 
-      - name: Check for changes in backend
-        id: changes
+      - id: filter
         uses: dorny/paths-filter@v3
         with:
           filters: |
             backend:
               - 'backend/**'
 
-      - name: Show result
-        run: |
-          echo "Backend changed = ${{ steps.changes.outputs.backend }}"
-
   backend:
-    needs: check-changes
+    needs: check
+    if: needs.check.outputs.backend == 'true'
     runs-on: ubuntu-latest
 
-    if: needs.check-changes.outputs.backend == 'true'
-
     steps:
-      - name: Backend changes detected
-        run: |
-          echo "✅ Changes detected in backend folder"
-          echo "🚀 Backend job is running"
-       
-             
+      - run: echo "🚀 Backend changes detected!"

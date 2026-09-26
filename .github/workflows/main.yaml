@@ -1,55 +1,36 @@
-name: Backend CI/CD
+name: Backend CD
 
 on:
-  push:
+  pull_request:
+    types: [closed]
     branches: [main]
 
 jobs:
-
-  check:
-    runs-on: ubuntu-latest
-
-    outputs:
-      backend: ${{ steps.filter.outputs.backend }}
-
-    steps:
-      - uses: actions/checkout@v4
-
-      - id: filter
-        uses: dorny/paths-filter@v3
-        with:
-          filters: |
-            backend:
-              - 'backend/**'
-
-
-  backend:
-    needs: check
-    if: needs.check.outputs.backend == 'true'
+  deploy:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
 
     steps:
 
-      # Checkout repository
-      - name: Checkout
+      - name: Checkout merged code
         uses: actions/checkout@v4
+        with:
+          ref: main
 
-      # Docker Hub login
-      - name: DockerHub Login
+      - name: Docker Hub Login
         uses: docker/login-action@v3
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # Build image
-      - name: Build Backend Image
-        run: docker build -t amankhan22/backend:latest ./backend
+      - name: Build Backend
+        run: |
+          docker build -t amankhan22/backend:latest ./backend
 
-      # Push image
-      - name: Push Backend Image
-        run: docker push amankhan22/backend:latest
+      - name: Push Backend
+        run: |
+          docker push amankhan22/backend:latest
 
-      # Deploy to VPS
       - name: Deploy to VPS
         uses: appleboy/ssh-action@v1.2.2
         with:

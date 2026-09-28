@@ -1,4 +1,5 @@
 const app = require('./src/app')
+const redis = require("./src/configs/redis");
 const connectDB = require('./src/configs/database')
 
 connectDB()

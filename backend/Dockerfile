@@ -4,7 +4,7 @@ WORKDIR /usr/src/app
 
 ENV PORT=3000
 ENV MONGO_URI=mongodb://admin:123456@mongodb:27017/auth?authSource=admin
-
+ENV REDIS_URL=redis://redis:6379
 
 COPY package*.json ./
 
